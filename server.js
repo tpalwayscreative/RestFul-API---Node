@@ -1,7 +1,3 @@
-/**
- * Created by phong on 12/18/16.
- */
-
 
 var users = require('./app/v1/Users_DBHandler');
 
