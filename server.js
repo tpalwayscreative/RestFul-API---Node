@@ -5,6 +5,8 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     morgan = require('morgan'),
     http = require('http'),
+    mongoose = require('mongoose'),
+    config = require('./config/database'),
     app = new express(),
     expressValidator = require('express-validator'),
     port = process.env.PORT || 5000,
@@ -16,11 +18,21 @@ app.use(bodyParser.urlencoded({
 app.use(expressValidator());
 app.use(morgan('dev'));
 
+mongoose.Promise = global.Promise;
+mongoose.connect(config.database,function (err) {
+    if(err){
+        console.log('Mongodb connected error',err);
+    }else{
+        console.log('Mongodb connected successfully');
+    }
+});
+
 app.get('/',function(req,res){
 
     res.json('Welcome to Restful Node');
 
 });
+
 
 
 var apiUsers = express.Router();
